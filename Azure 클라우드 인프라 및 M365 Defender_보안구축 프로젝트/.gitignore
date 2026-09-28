@@ -1,0 +1,32 @@
+# ===== Terraform =====
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# ===== 실행파일 / 대용량 =====
+*.exe
+
+# ===== 민감정보 (절대 커밋 금지) =====
+id_rsa
+*.pem
+*.key
+*.ppk
+
+# 실제 비밀값이 들어가는 파일 (예시 파일 *.example 만 커밋)
+100_krdata.tf
+100_jpdata.tf
+*.tfvars
+!*.tfvars.example
+secrets.auto.tfvars
+
+# ===== OS / 편집기 =====
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

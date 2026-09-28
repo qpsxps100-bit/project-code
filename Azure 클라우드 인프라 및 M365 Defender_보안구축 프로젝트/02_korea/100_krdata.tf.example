@@ -1,0 +1,35 @@
+# ┌─ 실제 배포 시 이 파일을 100_krdata.tf 로 복사하고 REPLACE_ 값을 채우세요.
+# └─ 100_krdata.tf 는 .gitignore 로 제외됩니다 (비밀값 커밋 방지).
+
+module "korea" {
+
+  source = "../01_azure"
+github_token = "REPLACE_WITH_YOUR_GITHUB_PAT"
+  subid  = "REPLACE_WITH_YOUR_AZURE_SUBSCRIPTION_ID"
+  rgname = "07-4team-kr"
+  loca   = "korea central"
+  hubcidr  = "10.0.0.0/16"
+  fwsub    = "10.0.0.0/24"
+  appgwsub = "10.0.1.0/24"
+  vpngwsub = "10.0.2.0/24"
+  batsub   = "10.0.3.0/26"
+  webspokecidr = "10.1.0.0/16"
+  websub   = "10.1.0.0/24"
+  webPEsub = "10.1.1.0/24"
+  wassub   = "10.1.2.0/24"
+  dbspokecidr = "10.2.0.0/16"
+  dbsub       = "10.2.0.0/24"
+  onprem_gateway_ip = "REPLACE_WITH_YOUR_ONPREM_PUBLIC_IP"
+  onprem_cidr       = "192.168.250.0/24"
+  onprem_mysql_host = "192.168.250.10"
+  vpn_shared_key = "REPLACE_WITH_YOUR_VPN_SHARED_KEY"
+  admin_cidr = "192.168.100.0/24"
+  mysql_admin_username = "team4"
+  mysql_admin_password = "REPLACE_WITH_YOUR_DB_PASSWORD"
+  onprem_elk_host = "192.168.250.20"
+  tm_profile  = true
+  tm_priority = 1
+  appgw_dns_label = "team4-appgw-kr"
+  mysql_server_name = "team4-mysql-kr"
+  waslbip = "10.1.2.100"
+}
