@@ -4,6 +4,22 @@
 
 단일 서버·단일 리전 의존 구조의 장애 위험을 해소하기 위해 **고가용성 · 재해복구(DR) · 보안**을 갖춘 하이브리드 멀티리전 클라우드 인프라를 구축한 프로젝트입니다. Azure 2개 리전(Korea Central · Japan East)을 Terraform으로 자동화하고, 온프레미스 환경과 Site-to-Site VPN으로 연동했습니다.
 
+## 📌 두 프로젝트, 하나의 코드
+
+이 저장소의 코드는 아래 **두 팀 프로젝트가 공유하는 동일한 Azure 인프라 코드**입니다. 두 프로젝트의 Terraform 코드(`.tf`)는 **100% 동일**하며, 차이는 코드 바깥 구성(온프레미스 물리 장비·ELK, M365 Defender 보안운영)과 보고서의 강조점에 있습니다. 중복을 피하기 위해 Azure 인프라 코드는 이 한 곳에서 관리합니다.
+
+| 프로젝트 | 공통 기반 | 각 프로젝트가 더한 것 |
+|---|---|---|
+| **Azure 클라우드 인프라 및 M365 Defender 보안구축** | ← 동일한 Azure 멀티리전 Terraform 코드 | M365 Defender(엔드포인트·메일·Alert) 보안운영 관점 |
+| **하이브리드 멀티리전 클라우드 보안구축** | ← 동일한 Azure 멀티리전 Terraform 코드 | 온프레미스(Cisco·BLUEMAX·ELK) 연계 · S2S VPN · DR/DB Fallback · 통합 로그 |
+
+> **하이브리드 프로젝트가 추가한 것** (물리 장비·OS 설정이라 Terraform 코드 외부)
+> - 온프레미스 물리망 — Cisco Catalyst 3550(L3)·2960, PIOLINK TiFRONT, BLUEMAX NGF100(방화벽)
+> - VLAN 분리 — 직원 VLAN100 / 관리자 VLAN200 / DB VLAN250, L3 Inter-VLAN Routing · ACL · NAT/PAT
+> - On-Prem MySQL(Primary)·ELK 중앙 로그 수집
+> - S2S VPN으로 Azure Web/WAS ↔ 온프레 MySQL(3306)·ELK(5044) 사설 연계
+> - On-Prem DB 장애 시 Azure MySQL로 Fallback/Replication 전환·원복
+
 ## 🧱 사용 기술
 
 | 영역 | 기술 |
